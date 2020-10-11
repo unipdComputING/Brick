@@ -1,0 +1,176 @@
+// Input manual
+//----------------------------------------------------------------------COMMENT
+// a comment line start with // symbol 
+//-----------------------------------------------------------------------------
+//------------------------------------------------------------------NODES BLOCK
+//nodes coordinates
+//
+//command block:
+//  nodes
+//  ...
+//  end
+//
+//into the block the nodal coordinates have to be
+//added. The node ID (node index) coincides with the row number of the block 
+//
+//  nodes
+//     n1_x n1_y n1_z  // node ID 1
+//     n2_x n2_y n2_z  // node ID 2
+//     ...
+//     nm_x nm_y nm_z  // node ID m
+//  end
+//
+nodes
+  0.0 0.0 0.0
+  1.0 0.0 0.0
+  0.0 1.0 0.0
+end
+//-----------------------------------------------------------------------------
+//---------------------------------------------------------------ELEMENTS BLOCK
+//command elements:
+//  elements
+//  ...
+//  end
+//
+//into the block, the node ID of the elements (in agreement with local numbering) 
+// and the materiai index belonging to the elements have to be added. 
+//The element ID coincides with the row number of the block.
+//
+//  elements
+//    nID_1 nID_2 nID_3 nID_4 nID_5 nID_6 nID_7 nID_8 ID_mat  // element ID = 1
+//    nID_1 nID_2 nID_3 nID_4 nID_5 nID_6 nID_7 nID_8 ID_mat  // element ID = 2
+//    ...
+//    nID_1 nID_2 nID_3 nID_4 nID_5 nID_6 nID_7 nID_8 ID_mat  // element ID = mm
+//  end
+//
+elements
+    1   2   3   4   5   6   7   8   1
+   10  12   3  54 122 289 500 499   1
+  100  20  34  51  67  82 334 501   2
+end
+//-----------------------------------------------------------------------------
+//--------------------------------------------------------------MATERIALS BLOCK
+//command materials:
+//
+//  materials
+//  ...
+//  end
+//
+//into the block the:
+// material index                  mID; 
+// elastic modulus                   E;
+// Poisson's ratio                  nu;
+// density                         rho;
+// thermal expansion coefficient alpha; 
+// have to be added:
+//
+//  materials
+//    mID  E  nu  rho  alpha
+//  end
+//
+materials
+    1 190000.00 0.0 7.87e-1 1.15e-5
+	2  30000.00 0.0 2.00e-1 1.00e-5
+end
+//-----------------------------------------------------------------------------
+//-------------------------------------------------------------BOUNDARIES BLOCK
+//command boundaries
+//  boundaties
+//  end
+//
+//into the block the:
+//constrained node nID;
+//constrained condition C (with C equal to 1=fix or 0=free) in the x y z direction;
+//prescribed displacements ux uy uz;
+//table index tabID (if present);
+//have to be added:
+//
+//  boundaries
+//   nID  C C C   ux uy ux   tabID
+//  end
+//
+boundaries
+  1    1 1 1   0.0 0.0 -10.0   1
+  3    0 1 0   0.0 0.0   0.0
+ 10    1 0 0   1.0 0.0   0.0
+end
+//-----------------------------------------------------------------------------
+//------------------------------------------------------------------LOADS BLOCK
+//Only concentrated loads have been implemented in the code.
+//
+//command loads:
+//  loads
+//  end
+//
+//into the block the:
+//loaded node          nID;
+//load components fx fy fz;
+//table index tabID (if present);
+//have to be added:
+//
+//  boundaries
+//   nID  fx fy fx   tabID
+//  end
+//
+loads
+  1    0.0 0.0 -10.0   1
+  3    0.0 2.0   0.0
+ 10    1.0 0.0   0.0   2
+end
+//-----------------------------------------------------------------------------
+//------------------------------------------------------------------TABLE BLOCK
+//A table can be conceived as an amplitude for loads and/or prescribed 
+//displacements.
+//
+//command table:
+//  table
+//  end
+//
+//into the block the:
+//table index      tabID;
+//analysis time    time_;
+//amplitude         val_;
+//have to be added:
+//
+//  table
+//    tabID
+//    time_1 val_1
+//    time_2 val_2
+//    ...
+//    time_s val_s
+//  end
+//
+table
+  1
+  0.0 0.0
+  0.5 1.0
+  1.0 0.0
+end
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------SOLVER BLOCK
+//To obtain an incremental solution
+//
+//command solver:
+//  solver
+//  end
+//
+//into the block the:
+//time start         time_start;
+//time end           time_start;
+//number of steps         nStep;
+//results plot interval  nPlot;
+//have to be added:
+//
+//  solver
+//    time_start   time_start   nStep   nPlot
+//  end
+//
+solver
+           0            1           10            1
+end
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+
+
